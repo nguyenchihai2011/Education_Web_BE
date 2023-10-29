@@ -6,7 +6,7 @@ namespace EducationAPI.DTOs
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
-        public StudentEntity? Student { get; set; }
-        public ICollection<CartDetailsEntity>? CartDetails { get; set; }
+        public Student? Student { get; set; }
+        public ICollection<CartDetails>? CartDetails { get; set; }
     }
 }

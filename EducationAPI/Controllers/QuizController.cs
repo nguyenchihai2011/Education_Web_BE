@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newQuiz = await quizRepository.Add(mapper.Map<QuizEntity>(quizDto));
+                var newQuiz = await quizRepository.Add(mapper.Map<Quiz>(quizDto));
                 return Ok(mapper.Map<QuizDTO>(newQuiz));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateQuiz = await quizRepository.GetById(id);
                 if (updateQuiz != null)
                 {
-                    return Ok(mapper.Map<QuizDTO>(await quizRepository.Update(id, mapper.Map<QuizEntity>(quizDto))));
+                    return Ok(mapper.Map<QuizDTO>(await quizRepository.Update(id, mapper.Map<Quiz>(quizDto))));
                 }
                 else
                 {

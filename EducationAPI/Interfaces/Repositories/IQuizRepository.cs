@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface IQuizRepository : IGenericRepository<QuizEntity>
+    public interface IQuizRepository : IGenericRepository<Quiz>
     {
     }
 }

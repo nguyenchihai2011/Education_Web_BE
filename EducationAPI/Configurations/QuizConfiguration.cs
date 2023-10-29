@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class QuizConfiguration : IEntityTypeConfiguration<QuizEntity>
+    public class QuizConfiguration : IEntityTypeConfiguration<Quiz>
     {
-        public void Configure(EntityTypeBuilder<QuizEntity> builder)
+        public void Configure(EntityTypeBuilder<Quiz> builder)
         {
             builder
                 .HasMany(e => e.StudentQuizzes)

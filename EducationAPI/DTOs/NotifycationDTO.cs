@@ -9,8 +9,8 @@ namespace EducationAPI.DTOs
         public string Content { get; set; }
         public DateTime CreateAt { get; set; }
         public int StudentId { get; set; }
-        public StudentEntity? Student { get; set; }
+        public Student? Student { get; set; }
         public int LectureId { get; set; }
-        public LectureEntity? Lecture { get; set; }
+        public Lecture? Lecture { get; set; }
     }
 }

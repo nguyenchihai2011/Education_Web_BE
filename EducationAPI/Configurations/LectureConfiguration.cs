@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class LectureConfiguration : IEntityTypeConfiguration<LectureEntity>
+    public class LectureConfiguration : IEntityTypeConfiguration<Lecture>
     {
-        public void Configure(EntityTypeBuilder<LectureEntity> builder)
+        public void Configure(EntityTypeBuilder<Lecture> builder)
         {
             builder
                 .HasMany(e => e.Notifycations)

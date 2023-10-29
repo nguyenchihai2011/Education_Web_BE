@@ -2,7 +2,7 @@
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface ISectionRepository : IGenericRepository<SectionEntity>
+    public interface ISectionRepository : IGenericRepository<Section>
     {
     }
 }

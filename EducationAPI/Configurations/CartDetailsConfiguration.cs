@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class CartDetailsConfiguration : IEntityTypeConfiguration<CartDetailsEntity>
+    public class CartDetailsConfiguration : IEntityTypeConfiguration<CartDetails>
     {
-        public void Configure(EntityTypeBuilder<CartDetailsEntity> builder)
+        public void Configure(EntityTypeBuilder<CartDetails> builder)
         {
             builder
                 .HasKey(e => new { e.CartId, e.CourseId });

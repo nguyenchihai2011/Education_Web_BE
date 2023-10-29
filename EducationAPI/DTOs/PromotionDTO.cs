@@ -13,8 +13,8 @@ namespace EducationAPI.Data
         public DateTime EndAt { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public ICollection<CourseEntity>? Courses { get; set; }
+        public ICollection<Course>? Courses { get; set; }
         public int? LectureId { get; set; }
-        public LectureEntity? Lecture { get; set; }
+        public Lecture? Lecture { get; set; }
     }
 }

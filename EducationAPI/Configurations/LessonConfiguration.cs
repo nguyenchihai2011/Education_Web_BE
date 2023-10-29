@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class LessonConfiguration : IEntityTypeConfiguration<LessonEntity>
+    public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
     {
-        public void Configure(EntityTypeBuilder<LessonEntity> builder)
+        public void Configure(EntityTypeBuilder<Lesson> builder)
         {
             builder
                 .HasMany(e => e.StudentLessons)

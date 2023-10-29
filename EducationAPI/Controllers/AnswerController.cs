@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newAnswer = await answerRepository.Add(mapper.Map<AnswerEntity>(answerDto));
+                var newAnswer = await answerRepository.Add(mapper.Map<Answer>(answerDto));
                 return Ok(mapper.Map<AnswerDTO>(newAnswer));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateAnswer = await answerRepository.GetById(id);
                 if (updateAnswer != null)
                 {
-                    return Ok(mapper.Map<AnswerDTO>(await answerRepository.Update(id, mapper.Map<AnswerEntity>(answerDto))));
+                    return Ok(mapper.Map<AnswerDTO>(await answerRepository.Update(id, mapper.Map<Answer>(answerDto))));
                 }
                 else
                 {

@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newNotifycation = await notifycationRepository.Add(mapper.Map<NotifycationEntity>(notifycationDto));
+                var newNotifycation = await notifycationRepository.Add(mapper.Map<Notifycation>(notifycationDto));
                 return Ok(mapper.Map<NotifycationDTO>(newNotifycation));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateNotifycation = await notifycationRepository.GetById(id);
                 if (updateNotifycation != null)
                 {
-                    return Ok(mapper.Map<QuizDTO>(await notifycationRepository.Update(id, mapper.Map<NotifycationEntity>(notifycationDto))));
+                    return Ok(mapper.Map<QuizDTO>(await notifycationRepository.Update(id, mapper.Map<Notifycation>(notifycationDto))));
                 }
                 else
                 {

@@ -57,7 +57,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var admin = mapper.Map<AdminEntity>(adminDto);
+                var admin = mapper.Map<Admin>(adminDto);
                 if(context.Admins.SingleOrDefault(a => a.UserId == admin.UserId) == null
                     && context.Lectures.SingleOrDefault(a => a.UserId == admin.UserId) == null
                     && context.Students.SingleOrDefault(a => a.UserId == admin.UserId) == null)
@@ -83,7 +83,7 @@ namespace EducationAPI.Controllers
                 var updateAdmin = await adminRepository.GetById(id);
                 if (updateAdmin != null)
                 {
-                    return Ok(mapper.Map<AdminDTO>(await adminRepository.Update(id, mapper.Map<AdminEntity>(admin))));
+                    return Ok(mapper.Map<AdminDTO>(await adminRepository.Update(id, mapper.Map<Admin>(admin))));
                 }
                 else
                 {

@@ -7,6 +7,7 @@ using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,10 +40,18 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var section = await sectionRepository.GetById(id);
+                /*var section = await sectionRepository.GetById(id);*/
+                var section = context.Sections.Include(s => s.Lessons).Where(s => s.Id == id);
+                var result = section.Select(s => new SectionDTO
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    CourseId = s.Id,
+                    Lessons = s.Lessons,
+                });
                 if (section != null)
                 {
-                    return Ok(mapper.Map<SectionDTO>(section));
+                    return Ok(result);
                 }
                 else
                 {
@@ -60,7 +69,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newSection = await sectionRepository.Add(mapper.Map<SectionEntity>(sectionDto));
+                var newSection = await sectionRepository.Add(mapper.Map<Section>(sectionDto));
                 return Ok(mapper.Map<SectionDTO>(newSection));
             }
             catch (Exception ex)
@@ -77,7 +86,7 @@ namespace EducationAPI.Controllers
                 var updateSection = await sectionRepository.GetById(id);
                 if (updateSection != null)
                 {
-                    return Ok(mapper.Map<SectionDTO>(await sectionRepository.Update(id, mapper.Map<SectionEntity>(sectionDto))));
+                    return Ok(mapper.Map<SectionDTO>(await sectionRepository.Update(id, mapper.Map<Section>(sectionDto))));
                 }
                 else
                 {

@@ -11,14 +11,14 @@ namespace EducationAPI.Test
 {
     public class AuthService
     {
-        private readonly UserManager<AppUserEntity> _userManager;
-        private readonly SignInManager<AppUserEntity> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public AuthService(UserManager<AppUserEntity> userManager,
-            SignInManager<AppUserEntity> signInManager, RoleManager<IdentityRole> roleManager,
+        public AuthService(UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
         {
             _userManager = userManager;
@@ -27,7 +27,7 @@ namespace EducationAPI.Test
             _configuration = configuration;
         }
 
-        public async Task<ApiResponse> LoginAsync(LoginEntity request)
+        public async Task<ApiResponse> LoginAsync(Login request)
         {
             var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
             if (!result.Succeeded)

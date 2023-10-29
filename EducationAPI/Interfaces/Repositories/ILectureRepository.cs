@@ -2,7 +2,7 @@
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface ILectureRepository : IGenericRepository<LectureEntity>
+    public interface ILectureRepository : IGenericRepository<Lecture>
     {
     }
 }

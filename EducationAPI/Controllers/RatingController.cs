@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newRating = await ratingRepository.Add(mapper.Map<RatingEntity>(ratingDto));
+                var newRating = await ratingRepository.Add(mapper.Map<Rating>(ratingDto));
                 return Ok(mapper.Map<RatingDTO>(newRating));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateRating = await ratingRepository.GetById(id);
                 if (updateRating != null)
                 {
-                    return Ok(mapper.Map<RatingDTO>(await ratingRepository.Update(id, mapper.Map<RatingEntity>(ratingDto))));
+                    return Ok(mapper.Map<RatingDTO>(await ratingRepository.Update(id, mapper.Map<Rating>(ratingDto))));
                 }
                 else
                 {

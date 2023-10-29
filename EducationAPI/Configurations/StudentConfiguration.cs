@@ -6,9 +6,9 @@ using System.Reflection.Metadata;
 
 namespace EducationAPI.Configurations
 {
-    public class StudentConfiguration : IEntityTypeConfiguration<StudentEntity>
+    public class StudentConfiguration : IEntityTypeConfiguration<Student>
     {
-        public void Configure(EntityTypeBuilder<StudentEntity> builder)
+        public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder
                 .HasMany(e => e.Orders)
@@ -36,7 +36,7 @@ namespace EducationAPI.Configurations
             builder
                 .HasOne(e => e.Cart)
                 .WithOne(c => c.Student)
-                .HasForeignKey<CartEntity>(c => c.StudentId)
+                .HasForeignKey<Cart>(c => c.StudentId)
                 .IsRequired();
 
             builder

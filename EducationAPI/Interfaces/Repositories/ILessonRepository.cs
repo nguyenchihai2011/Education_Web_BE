@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface ILessonRepository : IGenericRepository<LessonEntity>
+    public interface ILessonRepository : IGenericRepository<Lesson>
     {
     }
 }

@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newPromotion = await promotionRepository.Add(mapper.Map<PromotionEntity>(promotionDto));
+                var newPromotion = await promotionRepository.Add(mapper.Map<Promotion>(promotionDto));
                 return Ok(mapper.Map<PromotionDTO>(newPromotion));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updatePromotion = await promotionRepository.GetById(id);
                 if (updatePromotion != null)
                 {
-                    return Ok(mapper.Map<PromotionDTO>(await promotionRepository.Update(id, mapper.Map<PromotionEntity>(promotionDto))));
+                    return Ok(mapper.Map<PromotionDTO>(await promotionRepository.Update(id, mapper.Map<Promotion>(promotionDto))));
                 }
                 else
                 {

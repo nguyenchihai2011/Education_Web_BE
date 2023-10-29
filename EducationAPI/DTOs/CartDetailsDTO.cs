@@ -6,8 +6,8 @@ namespace EducationAPI.DTOs
     public class CartDetailsDTO
     {
         public int CartId { get; set; }
-        public CartEntity? Cart { get; set; }
+        public Cart? Cart { get; set; }
         public int CourseId { get; set; }
-        public CourseEntity? Course { get; set; }
+        public Course? Course { get; set; }
     }
 }

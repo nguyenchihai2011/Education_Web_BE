@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class NotifycationConfiguration : IEntityTypeConfiguration<NotifycationEntity>
+    public class NotifycationConfiguration : IEntityTypeConfiguration<Notifycation>
     {
-        public void Configure(EntityTypeBuilder<NotifycationEntity> builder)
+        public void Configure(EntityTypeBuilder<Notifycation> builder)
         {
             builder
                 .HasKey(e => e.Id);

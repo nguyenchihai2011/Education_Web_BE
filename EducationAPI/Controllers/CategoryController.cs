@@ -5,6 +5,7 @@ using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,10 +27,24 @@ namespace EducationAPI.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet]
+      /*  [HttpGet]
         public async Task<IEnumerable<CategoryDTO>> Get()
         {
             return mapper.Map<IEnumerable<CategoryDTO>>(await categoryRepository.GetAllAsync());
+        }*/
+
+        [HttpGet]
+        public IActionResult GetAll(string? search)
+        {
+            try
+            {
+                var result = categoryRepository.GetAll(search);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
@@ -37,10 +52,27 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var category = await categoryRepository.GetById(id);
+                /*var category = await categoryRepository.GetById(id);*/
+                var category = context.Categories.Include(c => c.Courses)
+                    .ThenInclude(c => c.Lecture)
+                    .Where(c => c.Id == id)
+                    .Select(c => new Category
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Courses = c.Courses.Select(cor => new Course
+                        {
+                            Id = cor.Id,
+                            Name = cor.Name,
+                            Title = cor.Title,
+                            ImageUrl = cor.ImageUrl,
+                            Price = cor.Price,
+                            Lecture = cor.Lecture,
+                        }).ToList(),
+                    }).FirstOrDefault();
                 if (category != null)
                 {
-                    return Ok(mapper.Map<CategoryDTO>(category));
+                    return Ok(category);
                 }
                 else
                 {
@@ -58,7 +90,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newCategory = await categoryRepository.Add(mapper.Map<CategoryEntity>(category));
+                var newCategory = await categoryRepository.Add(mapper.Map<Category>(category));
                 return Ok(mapper.Map<CategoryDTO>(newCategory));
             }
             catch (Exception ex)
@@ -75,7 +107,7 @@ namespace EducationAPI.Controllers
                 var updateCategory = await categoryRepository.GetById(id);
                 if (updateCategory != null)
                 {
-                    return Ok(mapper.Map<CategoryDTO>(await categoryRepository.Update(id, mapper.Map<CategoryEntity>(category))));
+                    return Ok(mapper.Map<CategoryDTO>(await categoryRepository.Update(id, mapper.Map<Category>(category))));
                 }
                 else
                 {

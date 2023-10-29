@@ -7,31 +7,31 @@ using System.Reflection.Metadata;
 
 namespace EducationAPI.Configurations
 {
-    public class AppUserConfiguration : IEntityTypeConfiguration<AppUserEntity>
+    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
-        public void Configure(EntityTypeBuilder<AppUserEntity> builder)
+        public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder
              .HasOne(c => c.Student)
-             .WithOne(e => e.User)
-             .HasForeignKey<StudentEntity>(e => e.UserId)
+             .WithOne(e => e.AppUser)
+             .HasForeignKey<Student>(e => e.UserId)
              .IsRequired();
 
             builder
              .HasOne(c => c.Lecture)
-             .WithOne(e => e.User)
-             .HasForeignKey<LectureEntity>(e => e.UserId)
+             .WithOne(e => e.AppUser)
+             .HasForeignKey<Lecture>(e => e.UserId)
              .IsRequired();
 
             builder
              .HasOne(c => c.Admin)
-             .WithOne(e => e.User)
-             .HasForeignKey<AdminEntity>(e => e.UserId)
+             .WithOne(e => e.AppUser)
+             .HasForeignKey<Admin>(e => e.UserId)
              .IsRequired();
 
             builder
                 .HasMany(e => e.Comments)
-                .WithOne(e => e.User)
+                .WithOne(e => e.AppUser)
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);

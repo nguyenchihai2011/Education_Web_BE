@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newLection = await lessonRepository.Add(mapper.Map<LessonEntity>(lessonDto));
+                var newLection = await lessonRepository.Add(mapper.Map<Lesson>(lessonDto));
                 return Ok(mapper.Map<LessonDTO>(newLection));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateLesson = await lessonRepository.GetById(id);
                 if (updateLesson != null)
                 {
-                    return Ok(mapper.Map<LessonDTO>(await lessonRepository.Update(id, mapper.Map<LessonEntity>(lessonDto))));
+                    return Ok(mapper.Map<LessonDTO>(await lessonRepository.Update(id, mapper.Map<Lesson>(lessonDto))));
                 }
                 else
                 {

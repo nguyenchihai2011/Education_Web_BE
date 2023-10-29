@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface IAnswerRepository : IGenericRepository<AnswerEntity>
+    public interface IAnswerRepository : IGenericRepository<Answer>
     {
     }
 }

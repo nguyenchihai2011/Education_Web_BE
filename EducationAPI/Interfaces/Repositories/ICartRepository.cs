@@ -2,7 +2,7 @@
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface ICartRepository : IGenericRepository<CartEntity>
+    public interface ICartRepository : IGenericRepository<Cart>
     {
     }
 }

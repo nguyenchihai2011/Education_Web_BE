@@ -5,7 +5,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Implement.Repositories
 {
-    public class RatingRepository : GenericRepository<RatingEntity>, IRatingRepository
+    public class RatingRepository : GenericRepository<Rating>, IRatingRepository
     {
         public RatingRepository(ApplicationDbContext context) : base(context)
         {

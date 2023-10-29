@@ -4,7 +4,7 @@ using EducationAPI.Interfaces.Repositories;
 
 namespace EducationAPI.Implement.Repositories
 {
-    public class StudentRepository : GenericRepository<StudentEntity>, IStudentRepository
+    public class StudentRepository : GenericRepository<Student>, IStudentRepository
     {
         public StudentRepository(ApplicationDbContext context) : base(context)
         {

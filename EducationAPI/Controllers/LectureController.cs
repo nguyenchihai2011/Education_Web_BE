@@ -59,7 +59,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var lecture = mapper.Map<LectureEntity>(lectureDto);
+                var lecture = mapper.Map<Lecture>(lectureDto);
                 if (context.Admins.SingleOrDefault(a => a.UserId == lecture.UserId) == null
                     && context.Lectures.SingleOrDefault(a => a.UserId == lecture.UserId) == null
                     && context.Students.SingleOrDefault(a => a.UserId == lecture.UserId) == null)
@@ -87,7 +87,7 @@ namespace EducationAPI.Controllers
                 var updateLecture = await lectureRepository.GetById(id);
                 if (updateLecture != null)
                 {
-                    return Ok(mapper.Map<LectureDTO>(await lectureRepository.Update(id, mapper.Map<LectureEntity>(lecture))));
+                    return Ok(mapper.Map<LectureDTO>(await lectureRepository.Update(id, mapper.Map<Lecture>(lecture))));
                 }
                 else
                 {

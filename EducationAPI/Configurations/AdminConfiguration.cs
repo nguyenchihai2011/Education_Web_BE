@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class AdminConfiguration : IEntityTypeConfiguration<AdminEntity>
+    public class AdminConfiguration : IEntityTypeConfiguration<Admin>
     {
-        public void Configure(EntityTypeBuilder<AdminEntity> builder)
+        public void Configure(EntityTypeBuilder<Admin> builder)
         {
         }
     }

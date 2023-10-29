@@ -3,10 +3,12 @@ using EducationAPI.Context;
 using EducationAPI.Data;
 using EducationAPI.DTOs;
 using EducationAPI.Entities;
+using EducationAPI.Enum;
 using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,10 +40,35 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var student = await studentRepository.GetById(id);
+                /*var student = await studentRepository.GetById(id);*/
+                var student = context.Students.Include(s => s.Orders).ThenInclude(o => o.OrderDetails).ThenInclude(od => od.Course).Where(s => s.Id == id).Select(c => new
+                {
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Address = c.Address,
+                    AvatarUrl = c.AvatarUrl,
+                    UserId = c.UserId,
+                    Orders = c.Orders.Select(o => new
+                    {
+                        Id = o.Id,
+                        Payment = o.Payment,
+                        TotalPrice = o.TotalPrice,
+                        CreateAt = o.CreateAt,
+                        StudentId = o.StudentId,
+                        OrderDetails = o.OrderDetails.Select(od => new
+                        {
+                            CourseId = od.CourseId,
+                            Course = od.Course,
+                            OrderId = od.OrderId,
+                            Price = od.Price,
+                        })
+
+                    })
+                }).FirstOrDefault();
                 if (student != null)
                 {
-                    return Ok(mapper.Map<StudentDTO>(student));
+                    return Ok(student);
                 }
                 else
                 {
@@ -59,7 +86,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var student = mapper.Map<StudentEntity>(studentDto);
+                var student = mapper.Map<Student>(studentDto);
                 if (context.Admins.SingleOrDefault(a => a.UserId == student.UserId) == null
                     && context.Lectures.SingleOrDefault(a => a.UserId == student.UserId) == null
                     && context.Students.SingleOrDefault(a => a.UserId == student.UserId) == null)
@@ -87,7 +114,7 @@ namespace EducationAPI.Controllers
                 var updateStudent = await studentRepository.GetById(id);
                 if (updateStudent != null)
                 {
-                    return Ok(mapper.Map<StudentDTO>(await studentRepository.Update(id, mapper.Map<StudentEntity>(student))));
+                    return Ok(mapper.Map<StudentDTO>(await studentRepository.Update(id, mapper.Map<Student>(student))));
                 }
                 else
                 {

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class PromotionConfiguration : IEntityTypeConfiguration<PromotionEntity>
+    public class PromotionConfiguration : IEntityTypeConfiguration<Promotion>
     {
-        public void Configure(EntityTypeBuilder<PromotionEntity> builder)
+        public void Configure(EntityTypeBuilder<Promotion> builder)
         {
             builder
                 .HasMany(e => e.Courses)

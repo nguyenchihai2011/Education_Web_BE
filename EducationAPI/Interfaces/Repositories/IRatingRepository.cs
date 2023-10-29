@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface IRatingRepository : IGenericRepository<RatingEntity>
+    public interface IRatingRepository : IGenericRepository<Rating>
     {
     }
 }

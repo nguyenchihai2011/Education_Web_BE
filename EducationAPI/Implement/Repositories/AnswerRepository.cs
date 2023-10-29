@@ -5,7 +5,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Implement.Repositories
 {
-    public class AnswerRepository : GenericRepository<AnswerEntity>, IAnswerRepository
+    public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
     {
         public AnswerRepository(ApplicationDbContext context) : base(context)
         {

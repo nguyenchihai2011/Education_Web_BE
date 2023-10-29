@@ -7,11 +7,12 @@ namespace EducationAPI.DTOs
     {
         public int Id { get; set; }
         public string Question { get; set; }
+        public int Index { get; set; }
         public string CreateAt { get; set; }
         public string UpdateAt { get; set; }
         public int LessonId { get; set; }
-        public LessonEntity? Lesson { get; set; }
-        public ICollection<AnswerEntity>? Answers { get; set; }
-        public ICollection<StudentQuizEntity>? StudentQuizzes { get; set; }
+        public Lesson? Lesson { get; set; }
+        public ICollection<Answer>? Answers { get; set; }
+        public ICollection<StudentQuiz>? StudentQuizzes { get; set; }
     }
 }

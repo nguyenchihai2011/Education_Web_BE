@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newComment = await commentRepository.Add(mapper.Map<CommentEntity>(commentDto));
+                var newComment = await commentRepository.Add(mapper.Map<Comment>(commentDto));
                 return Ok(mapper.Map<CommentDTO>(newComment));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateComment = await commentRepository.GetById(id);
                 if (updateComment != null)
                 {
-                    return Ok(mapper.Map<CommentDTO>(await commentRepository.Update(id, mapper.Map<CommentEntity>(commentDto))));
+                    return Ok(mapper.Map<CommentDTO>(await commentRepository.Update(id, mapper.Map<Comment>(commentDto))));
                 }
                 else
                 {

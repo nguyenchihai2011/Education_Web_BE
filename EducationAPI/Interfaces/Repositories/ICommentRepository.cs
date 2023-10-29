@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface ICommentRepository : IGenericRepository<CommentEntity>
+    public interface ICommentRepository : IGenericRepository<Comment>
     {
     }
 }

@@ -3,7 +3,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface IPromotionRepository : IGenericRepository<PromotionEntity>
+    public interface IPromotionRepository : IGenericRepository<Promotion>
     {
 
     }

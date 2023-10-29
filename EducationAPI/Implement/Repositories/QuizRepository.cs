@@ -5,7 +5,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Implement.Repositories
 {
-    public class QuizRepository : GenericRepository<QuizEntity>, IQuizRepository
+    public class QuizRepository : GenericRepository<Quiz>, IQuizRepository
     {
         public QuizRepository(ApplicationDbContext context) : base(context)
         {

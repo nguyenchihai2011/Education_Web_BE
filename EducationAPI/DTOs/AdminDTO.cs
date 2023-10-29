@@ -10,6 +10,5 @@ namespace EducationAPI.DTOs
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string UserId { get; set; }
-        public AppUserEntity? User { get; set; }
     }
 }

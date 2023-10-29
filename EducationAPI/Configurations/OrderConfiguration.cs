@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EducationAPI.Configurations
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<OrderEntity> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder
                 .HasMany(e => e.OrderDetails)

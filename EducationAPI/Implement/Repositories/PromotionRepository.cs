@@ -5,7 +5,7 @@ using EducationAPI.Models;
 
 namespace EducationAPI.Implement.Repositories
 {
-    public class PromotionRepository : GenericRepository<PromotionEntity>, IPromotionRepository
+    public class PromotionRepository : GenericRepository<Promotion>, IPromotionRepository
     {
         public PromotionRepository (ApplicationDbContext context) : base(context)
         {

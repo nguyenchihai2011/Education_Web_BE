@@ -7,7 +7,6 @@ namespace EducationAPI.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<CourseEntity>? Courses { get; set; }
 
     }
 }

@@ -10,32 +10,32 @@ using System.Reflection.Metadata;
 
 namespace EducationAPI.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUserEntity>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
         #region DbSet
-        public DbSet<AdminEntity> Admins { get; set; }
-        public DbSet<AppUserEntity> Users { get; set; }
-        public DbSet<CartDetailsEntity> CartDetails { get; set; }
-        public DbSet<CartEntity> Carts { get; set; }
-        public DbSet<CategoryEntity> Categories { get; set; }
-        public DbSet<CommentEntity> Comments { get; set; }
-        public DbSet<CourseEntity> Courses { get; set; }
-        public DbSet<LectureEntity> Lectures { get; set; }
-        public DbSet<LessonEntity> Lessons { get; set; }
-        public DbSet<NotifycationEntity> Notifycations { get; set; }
-        public DbSet<OrderDetailsEntity> OrderDetails { get; set; }
-        public DbSet<OrderEntity> Orders { get; set; }
-        public DbSet<PromotionEntity> Promotions { get; set; }
-        public DbSet<QuizEntity> Quizzes { get; set; }
-        public DbSet<RatingEntity> Ratings { get; set; }
-        public DbSet<SectionEntity> Sections { get; set; }
-        public DbSet<StudentEntity> Students { get; set; }
-        public DbSet<StudentLessonEntity> StudentLessons { get; set; }
-        public DbSet<StudentQuizEntity> StudentQuizzes { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<CartDetails> CartDetails { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Notifycation> Notifycations { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<StudentLesson> StudentLessons { get; set; }
+        public DbSet<StudentQuiz> StudentQuizzes { get; set; }
 
         #endregion
         protected override void OnModelCreating(ModelBuilder builder)

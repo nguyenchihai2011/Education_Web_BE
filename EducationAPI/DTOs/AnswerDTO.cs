@@ -8,6 +8,6 @@ namespace EducationAPI.DTOs
         public string Value { get; set; }
         public bool IsCorrect { get; set; }
         public int QuizId { get; set; }
-        public QuizEntity? Quiz { get; set; }
+        public Quiz? Quiz { get; set; }
     }
 }

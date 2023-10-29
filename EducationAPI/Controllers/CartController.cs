@@ -60,7 +60,7 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var newCart = await cartRepository.Add(mapper.Map<CartEntity>(cartDto));
+                var newCart = await cartRepository.Add(mapper.Map<Cart>(cartDto));
                 return Ok(mapper.Map<CartDTO>(newCart));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace EducationAPI.Controllers
                 var updateCart = await cartRepository.GetById(id);
                 if (updateCart != null)
                 {
-                    return Ok(mapper.Map<CartDTO>(await cartRepository.Update(id, mapper.Map<CartEntity>(cartDto))));
+                    return Ok(mapper.Map<CartDTO>(await cartRepository.Update(id, mapper.Map<Cart>(cartDto))));
                 }
                 else
                 {

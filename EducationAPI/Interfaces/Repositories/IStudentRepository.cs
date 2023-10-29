@@ -2,7 +2,7 @@
 
 namespace EducationAPI.Interfaces.Repositories
 {
-    public interface IStudentRepository : IGenericRepository<StudentEntity>
+    public interface IStudentRepository : IGenericRepository<Student>
     {
     }
 }
