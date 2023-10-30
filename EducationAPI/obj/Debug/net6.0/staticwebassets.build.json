@@ -1,11 +1,54 @@
 {
   "Version": 1,
-  "Hash": "5px+S6GmlTe84ywdeLPOQ4fAIAX4CAIKZBDzCBsJclQ=",
+  "Hash": "IDQPfnzcZ9YOw5Q70BjpHnFHbuck7lOinIqa89wLHFk=",
   "Source": "EducationAPI",
   "BasePath": "_content/EducationAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "EducationAPI\\wwwroot",
+      "Source": "EducationAPI",
+      "ContentRoot": "D:\\Workspace\\LuanVan\\Code\\Backend\\EducationAPI\\EducationAPI\\wwwroot\\",
+      "BasePath": "_content/EducationAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Workspace\\LuanVan\\Code\\Backend\\EducationAPI\\EducationAPI\\wwwroot\\js\\signalr\\dist\\browser\\signalr.js",
+      "SourceId": "EducationAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\LuanVan\\Code\\Backend\\EducationAPI\\EducationAPI\\wwwroot\\",
+      "BasePath": "_content/EducationAPI",
+      "RelativePath": "js/signalr/dist/browser/signalr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Identity": "D:\\Workspace\\LuanVan\\Code\\Backend\\EducationAPI\\EducationAPI\\wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "EducationAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Workspace\\LuanVan\\Code\\Backend\\EducationAPI\\EducationAPI\\wwwroot\\",
+      "BasePath": "_content/EducationAPI",
+      "RelativePath": "js/signalr/dist/browser/signalr.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\signalr\\dist\\browser\\signalr.min.js"
+    }
+  ]
 }

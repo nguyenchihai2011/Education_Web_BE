@@ -42,7 +42,9 @@ namespace EducationAPI.Configurations
                 .HasMany(e => e.Sections)
                 .WithOne(s => s.Course)
                 .HasForeignKey(s => s.CourseId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

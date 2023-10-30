@@ -141,5 +141,23 @@ namespace EducationAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("/api/category/bulkdelete")]
+        public async Task<IActionResult> Delete([FromBody] int[] ids)
+        {
+            try
+            {
+                foreach(var id in ids)
+                {
+                    var category = await categoryRepository.GetById(id);
+                    await categoryRepository.Delete(category);
+                }
+                return NoContent();         
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

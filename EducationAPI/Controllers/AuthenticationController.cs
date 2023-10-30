@@ -2,6 +2,7 @@
 using EducationAPI.Context;
 using EducationAPI.DTOs;
 using EducationAPI.Entities;
+using EducationAPI.Implement.Repositories;
 using EducationAPI.Models;
 using EducationAPI.Test;
 using Microsoft.AspNetCore.Authorization;
@@ -131,6 +132,26 @@ namespace EducationAPI.Controllers
                 var user = new Student();
                 user = applicationDbContext.Students.SingleOrDefault(x => x.UserId == userId);
                 return Ok(mapper.Map<StudentDTO>(user));
+            }
+        }
+
+
+        [HttpDelete("/api/user/bulkdelete")]
+        public async Task<IActionResult> Delete([FromBody] string[] ids)
+        {
+            try
+            {
+                foreach (var id in ids)
+                {
+                    var user = await applicationDbContext.AppUsers.FindAsync(id);
+                    applicationDbContext.Remove(user);
+                    await applicationDbContext.SaveChangesAsync();
+                }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

@@ -1,5 +1,7 @@
 D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\appsettings.Development.json
 D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\appsettings.json
+D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\libman.json
+D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\EducationAPI.staticwebassets.runtime.json
 D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\EducationAPI.exe
 D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\EducationAPI.deps.json
 D:\Workspace\LuanVan\Code\Backend\EducationAPI\EducationAPI\bin\Debug\net6.0\EducationAPI.runtimeconfig.json

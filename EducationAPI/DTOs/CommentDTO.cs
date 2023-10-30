@@ -9,8 +9,6 @@ namespace EducationAPI.DTOs
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
         public string UserId { get; set; }
-        public AppUser? User { get; set; }
         public int CourseId { get; set; }
-        public Course? Course { get; set; }
     }
 }

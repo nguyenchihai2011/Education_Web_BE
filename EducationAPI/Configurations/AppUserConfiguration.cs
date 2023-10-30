@@ -21,7 +21,9 @@ namespace EducationAPI.Configurations
              .HasOne(c => c.Lecture)
              .WithOne(e => e.AppUser)
              .HasForeignKey<Lecture>(e => e.UserId)
-             .IsRequired();
+             .IsRequired()
+             .OnDelete(DeleteBehavior.Cascade);
+
 
             builder
              .HasOne(c => c.Admin)
@@ -34,7 +36,7 @@ namespace EducationAPI.Configurations
                 .WithOne(e => e.AppUser)
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
