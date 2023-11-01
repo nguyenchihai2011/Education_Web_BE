@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EducationAPI.Context;
 using EducationAPI.Interfaces.Repositories;
+using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +50,8 @@ namespace EducationAPI.Controllers
                 .Select(g => new
                 {
                     Course = context.Courses.FirstOrDefault(c => c.Id == g.Key),
+                    RatingAvg = context.Courses.FirstOrDefault(c => c.Id == g.Key).Ratings.Any() ? context.Courses.FirstOrDefault(c => c.Id == g.Key).Ratings.Average(r => r.Start) : 0,
+                    TotalRatings = context.Courses.FirstOrDefault(c => c.Id == g.Key).Ratings.Count(),
                     TotalPurchases = g.Count()
                 })
                 .OrderByDescending(g => g.TotalPurchases)

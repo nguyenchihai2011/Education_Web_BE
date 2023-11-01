@@ -6,6 +6,6 @@ namespace EducationAPI.Interfaces.Repositories
 {
     public interface ICourseRepository : IGenericRepository<Course>
     {
-        List<CourseDTO> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 100);
+        List<CourseDTO> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 10);
     }
 }

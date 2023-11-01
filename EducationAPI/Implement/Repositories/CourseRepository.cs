@@ -17,7 +17,7 @@ namespace EducationAPI.Implement.Repositories
             this.context = context;
         }
 
-        public List<CourseDTO> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 100)
+        public List<CourseDTO> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 10)
         {
             var allCourse = context.Courses.Include(c => c.Lecture).AsQueryable();
 
@@ -65,6 +65,7 @@ namespace EducationAPI.Implement.Repositories
                 CategoryId = course.CategoryId,
                 PromotionId = course.PromotionId
             });
+
             return result.ToList();
 
             /*var result = PaginatedList<Course>.Create(allCourse, page, size);

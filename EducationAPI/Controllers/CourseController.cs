@@ -3,6 +3,7 @@ using EducationAPI.Context;
 using EducationAPI.Data;
 using EducationAPI.DTOs;
 using EducationAPI.Entities;
+using EducationAPI.Enum;
 using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
@@ -36,17 +37,90 @@ namespace EducationAPI.Controllers
         }*/
 
         [HttpGet]
-        public IActionResult GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 100)
+        public IActionResult GetAll(string? search, string? level, int? categoryId, double? rating, double? from, double? to, string? sort, int page = 1, int size = 10)
         {
             try
             {
-                var result = courseRepository.GetAll(search, from, to, sort, page, size);
-                return Ok(result);
+                var allCourse = context.Courses.Include(c => c.Lecture).AsQueryable();
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    allCourse = allCourse.Where(course => course.Name.Contains(search));
+                }
+                if (categoryId.HasValue)
+                {
+                    allCourse = allCourse.Where(course => course.CategoryId == categoryId);
+                }
+                if (from.HasValue)
+                {
+                    allCourse = allCourse.Where(course => course.Price >= from);
+                }
+                if (to.HasValue)
+                {
+                    allCourse = allCourse.Where(course => course.Price <= to);
+                }
+
+                if (rating.HasValue)
+                {
+                    allCourse = allCourse.Where(course => (course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0) >= rating);
+                }
+                if (!string.IsNullOrEmpty(level))
+                {
+                    allCourse = allCourse.Where(course => course.Level == level);
+                }
+
+                if (!string.IsNullOrEmpty(sort))
+                {
+                    switch (sort)
+                    {
+                        case "price":
+                            allCourse = allCourse.OrderBy(c => c.Price);
+                            break;
+                        case "-price":
+                            allCourse = allCourse.OrderByDescending(c => c.Price);
+                            break;
+
+                    }
+                }
+                var totalPage = (int)Math.Ceiling(allCourse.Count() / (double)size);
+                allCourse = allCourse.Skip((page - 1) * size).Take(size);
+
+                var result = allCourse.Select(course => new
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Title = course.Title,
+                    ImageUrl = course.ImageUrl,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Level = course.Level,
+                    Language = course.Language,
+                    LectureId = course.LectureId,
+                    Lecture = course.Lecture,
+                    CategoryId = course.CategoryId,
+                    PromotionId = course.PromotionId,
+                    RatingAvg = course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0,
+                    TotalRatings = course.Ratings.Count()
+                });
+
+                return Ok(new
+                {
+                    result = result,
+                    totalPage = totalPage
+                });
             }
             catch
             {
                 return BadRequest();
             }
+        }
+
+        double CalculateAverageRating(Course course)
+        {
+            // Logic to calculate the average rating for a course
+            // Replace this with the actual logic specific to your implementation
+            // Example logic:
+            return course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0;
         }
 
         [HttpGet("{id}")]
@@ -94,22 +168,7 @@ namespace EducationAPI.Controllers
                         CategoryId = c.CategoryId,
                         PromotionId = c.PromotionId
                     }).FirstOrDefault();
-                /*var result = course.Select(course => new CourseDTO
-                {
-                    Id = course.Id,
-                    Name = course.Name,
-                    Title = course.Title,
-                    ImageUrl = course.ImageUrl,
-                    Description = course.Description,
-                    Price = course.Price,
-                    Level = course.Level,
-                    Language = course.Language,
-                    LectureId = course.LectureId,
-                    Lecture = course.Lecture,
-                    Sections = course.Sections,
-                    CategoryId = course.CategoryId,
-                    PromotionId = course.PromotionId
-                });*/
+            
                 if (course != null)
                 {
                     return Ok(course);

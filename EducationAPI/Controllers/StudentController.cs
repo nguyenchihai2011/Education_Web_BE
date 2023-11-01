@@ -59,7 +59,16 @@ namespace EducationAPI.Controllers
                         OrderDetails = o.OrderDetails.Select(od => new
                         {
                             CourseId = od.CourseId,
-                            Course = od.Course,
+                            Course = new { 
+                               Id = od.Course.Id,
+                               Name = od.Course.Name,
+                               Title = od.Course.Title,
+                               ImageUrl = od.Course.ImageUrl,
+                               Description = od.Course.Description,
+                               Lecture = od.Course.Lecture,
+                               RatingAvg = od.Course.Ratings.Any() ? od.Course.Ratings.Average(r => r.Start) : 0,
+                               TotalRatings = od.Course.Ratings.Count()
+                            },
                             OrderId = od.OrderId,
                             Price = od.Price,
                         })
