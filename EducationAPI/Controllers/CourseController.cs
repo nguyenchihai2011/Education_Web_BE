@@ -36,12 +36,48 @@ namespace EducationAPI.Controllers
             return mapper.Map<IEnumerable<CourseDTO>>(await courseRepository.GetAllAsync());
         }*/
 
+        [HttpGet("/api/course/getall")]
+        public IActionResult GetAllNoFilter()
+        {
+            try
+            {
+                var allCourse = context.Courses.Include(c => c.Lecture).Where(c => !c.IsDelete);
+
+                var result = allCourse.Select(course => new
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Title = course.Title,
+                    ImageUrl = course.ImageUrl,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Level = course.Level,
+                    Language = course.Language,
+                    LectureId = course.LectureId,
+                    Lecture = course.Lecture,
+                    CategoryId = course.CategoryId,
+                    PromotionId = course.PromotionId,
+                    RatingAvg = course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0,
+                    TotalRatings = course.Ratings.Count()
+                });
+
+                return Ok(new
+                {
+                    result = result
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet]
         public IActionResult GetAll(string? search, string? level, int? categoryId, double? rating, double? from, double? to, string? sort, int page = 1, int size = 10)
         {
             try
             {
-                var allCourse = context.Courses.Include(c => c.Lecture).AsQueryable();
+                var allCourse = context.Courses.Include(c => c.Lecture).Where(c => !c.IsDelete).AsQueryable();
 
                 if (!string.IsNullOrEmpty(search))
                 {
@@ -84,7 +120,7 @@ namespace EducationAPI.Controllers
                 }
                 var totalPage = (int)Math.Ceiling(allCourse.Count() / (double)size);
                 allCourse = allCourse.Skip((page - 1) * size).Take(size);
-
+        
                 var result = allCourse.Select(course => new
                 {
                     Id = course.Id,
@@ -115,13 +151,50 @@ namespace EducationAPI.Controllers
             }
         }
 
-        double CalculateAverageRating(Course course)
+
+        [HttpGet("/api/courseOfLecture")]
+        public IActionResult GetCourseOfLecture(int lectureId)
+        {
+            try
+            {
+                var allCourse = context.Courses.Include(c => c.Lecture).Where(c => c.LectureId == lectureId && !c.IsDelete);
+
+                var result = allCourse.Select(course => new
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Title = course.Title,
+                    ImageUrl = course.ImageUrl,
+                    Description = course.Description,
+                    Price = course.Price,
+                    Level = course.Level,
+                    Language = course.Language,
+                    LectureId = course.LectureId,
+                    Lecture = course.Lecture,
+                    CategoryId = course.CategoryId,
+                    PromotionId = course.PromotionId,
+                    RatingAvg = course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0,
+                    TotalRatings = course.Ratings.Count()
+                });
+
+                return Ok(new
+                {
+                    result = result
+                });
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        /*double CalculateAverageRating(Course course)
         {
             // Logic to calculate the average rating for a course
             // Replace this with the actual logic specific to your implementation
             // Example logic:
             return course.Ratings.Any() ? course.Ratings.Average(r => r.Start) : 0;
-        }
+        }*/
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
@@ -131,8 +204,8 @@ namespace EducationAPI.Controllers
                 /*var course = await courseRepository.GetById(id);*/
                 var course = context.Courses.Include(c => c.Lecture).Include(c => c.Sections)
                     .ThenInclude(s => s.Lessons)
-                    .Where(c => c.Id == id)
-                    .Select(c => new CourseDTO
+                    .Where(c => c.Id == id && !c.IsDelete)
+                    .Select(c => new Course
                     {
                         Id = c.Id,
                         Name = c.Name,
@@ -155,8 +228,16 @@ namespace EducationAPI.Controllers
                                 Name = l.Name,
                                 VideoUrl = l.VideoUrl,
                                 Index = l.Index,
+                                IsReview = l.IsReview,
                                 Time = l.Time,
                                 SectionId = l.SectionId,
+                                Quizzes = l.Quizzes.Select(q => new Quiz
+                                {
+                                    Id = q.Id,
+                                    Question = q.Question,
+                                    Index = q.Index,
+                                    Answers = q.Answers,
+                                }).ToList(),
                                 StudentLessons = l.StudentLessons
                                 .Where(sl => sl.LessonId == l.Id)
                                 .Select(c => new StudentLesson
@@ -207,7 +288,8 @@ namespace EducationAPI.Controllers
                 var updateCourse = await courseRepository.GetById(id);
                 if (updateCourse != null)
                 {
-                    return Ok(mapper.Map<CourseDTO>(await courseRepository.Update(id, mapper.Map<Course>(courseDto))));
+                    var course = mapper.Map<Course>(courseDto);
+                    return Ok(mapper.Map<CourseDTO>(await courseRepository.Update(id, course)));
                 }
                 else
                 {
@@ -226,9 +308,10 @@ namespace EducationAPI.Controllers
             try
             {
                 var course = await courseRepository.GetById(id);
+                course.IsDelete = true;
                 if (course != null)
                 {
-                    await courseRepository.Delete(course);
+                    await courseRepository.Update(id, course);
                     return NoContent();
                 }
                 else
@@ -250,7 +333,8 @@ namespace EducationAPI.Controllers
                 foreach (var id in ids)
                 {
                     var course = await courseRepository.GetById(id);
-                    await courseRepository.Delete(course);
+                    course.IsDelete = true;
+                    await courseRepository.Update(id, course);
                 }
                 return NoContent();
             }

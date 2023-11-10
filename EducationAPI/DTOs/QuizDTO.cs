@@ -11,8 +11,5 @@ namespace EducationAPI.DTOs
         public string CreateAt { get; set; }
         public string UpdateAt { get; set; }
         public int LessonId { get; set; }
-        public Lesson? Lesson { get; set; }
-        public ICollection<Answer>? Answers { get; set; }
-        public ICollection<StudentQuiz>? StudentQuizzes { get; set; }
     }
 }

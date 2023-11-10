@@ -26,6 +26,7 @@ namespace EducationAPI.Helpers
             CreateMap<Cart, CartDTO>().ReverseMap();
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<StudentLesson, StudentLessonsDTO>().ReverseMap();
+            CreateMap<CartDetails, CartDetailsDTO>().ReverseMap();
         }
     }
 }

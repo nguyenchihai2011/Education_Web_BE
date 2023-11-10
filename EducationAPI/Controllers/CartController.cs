@@ -7,6 +7,7 @@ using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,10 +40,33 @@ namespace EducationAPI.Controllers
         {
             try
             {
-                var cart = await cartRepository.GetById(id);
+                var cart = context.Carts.Include(c => c.CartDetails).Select(c => new { 
+                    Id = c.Id,
+                    StudentId = c.StudentId,
+                    CartDetails = c.CartDetails.Select(cd => new {
+                        Id = cd.CartId,
+                        Course =  new
+                        {
+                            Id = cd.Course.Id,
+                            Name = cd.Course.Name,
+                            Title = cd.Course.Title,
+                            ImageUrl = cd.Course.ImageUrl,
+                            Description = cd.Course.Description,
+                            Price = cd.Course.Price,
+                            Level = cd.Course.Level,
+                            Language = cd.Course.Language,
+                            LectureId = cd.Course.LectureId,
+                            Lecture = cd.Course.Lecture,
+                            CategoryId = cd.Course.CategoryId,
+                            PromotionId = cd.Course.PromotionId,
+                            RatingAvg = cd.Course.Ratings.Any() ? cd.Course.Ratings.Average(r => r.Start) : 0,
+                            TotalRatings = cd.Course.Ratings.Count()
+                        },
+                    })
+                }).SingleOrDefault(c => c.StudentId == id);
                 if (cart != null)
                 {
-                    return Ok(mapper.Map<CartDTO>(cart));
+                    return Ok(cart);
                 }
                 else
                 {

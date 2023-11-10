@@ -41,7 +41,7 @@ namespace EducationAPI.Implement
         public async Task<T> Update(int id, T entity)
         {
 
-            context.Set<T>().Update(entity);
+            context.Update(entity);
             await context.SaveChangesAsync();
             return entity;
         }

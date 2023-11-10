@@ -15,6 +15,7 @@ namespace EducationAPI.Models
         public float Price { get; set; }
         public string Level { get; set; }
         public string Language { get; set; }
+        public bool IsDelete { get; set; }
         public string CreateBy { get; set; }
         public string CreateAt { get; set; }
         public string UpdateBy { get; set; }

@@ -31,7 +31,8 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
     .AddScoped<INotifycationRepository, NotifycationRepository>()
     .AddScoped<ICommentRepository, CommentRepository>()
     .AddScoped<IRatingRepository, RatingRepository>()
-    .AddScoped<ICartRepository, CartRepository>();
+    .AddScoped<ICartRepository, CartRepository>()
+    .AddScoped<ICartDetailsRepository, CartDetailsRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
@@ -40,7 +41,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    /*options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);*/
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 }
 );
 builder.Services.AddIdentity<AppUser, IdentityRole>()

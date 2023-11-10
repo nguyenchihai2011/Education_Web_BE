@@ -22,9 +22,7 @@ namespace EducationAPI.Data
         public string UpdateBy { get; set; }
         public DateTime UpdateAt { get; set; }
         public int LectureId { get; set; }
-        public Lecture? Lecture { get; set; }
         public int CategoryId { get; set; }
-        public ICollection<Section>? Sections { get; set; }
         public int? PromotionId { get; set; }
 
     }

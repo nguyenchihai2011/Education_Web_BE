@@ -17,7 +17,7 @@ namespace EducationAPI.Implement.Repositories
             this.context = context;
         }
 
-        public List<CourseDTO> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 10)
+        public List<Course> GetAll(string? search, double? from, double? to, string? sort, int page = 1, int size = 10)
         {
             var allCourse = context.Courses.Include(c => c.Lecture).AsQueryable();
 
@@ -50,7 +50,7 @@ namespace EducationAPI.Implement.Repositories
 
             allCourse = allCourse.Skip((page - 1) * size).Take(size);
 
-            var result = allCourse.Select(course => new CourseDTO
+            var result = allCourse.Select(course => new Course
             {
                 Id = course.Id,
                 Name = course.Name,
@@ -87,6 +87,5 @@ namespace EducationAPI.Implement.Repositories
             }).ToList();*/
 
         }
-
     }
 }
