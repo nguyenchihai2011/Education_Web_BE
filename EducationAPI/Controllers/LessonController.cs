@@ -7,6 +7,7 @@ using EducationAPI.Implement.Repositories;
 using EducationAPI.Interfaces.Repositories;
 using EducationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,9 +30,31 @@ namespace EducationAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<LessonDTO>> Get()
+        public async Task<IActionResult> Get()
         {
-            return mapper.Map<IEnumerable<LessonDTO>>(await lessonRepository.GetAllAsync());
+            var result = context.Lessons.Include(l => l.Section).ThenInclude(s => s.Course)
+                .Select(l => new
+                {
+                    Id = l.Id,
+                    Name = l.Name,
+                    VideoUrl = l.VideoUrl,
+                    Time = l.Time,
+                    Index = l.Index,
+                    IsReview = l.IsReview,
+                    CreateAt = l.CreateAt,
+                    UpdateAt = l.UpdateAt,
+                    Section = new
+                    {
+                        Id = l.Section.Id,
+                        Name = l.Section.Name,
+                        Course = new
+                        {
+                            Id = l.Section.Course.Id,
+                            Name = l.Section.Course.Name
+                        }
+                    }
+                }).ToList();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
